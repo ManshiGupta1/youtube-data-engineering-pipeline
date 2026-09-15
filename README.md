@@ -20,48 +20,8 @@ The pipeline:
 ## dataset
 Dataset: Raw YouTube datasets are stored in Amazon S3 and excluded from this repository due to GitHub file-size limits.
 
-## 🏗️ Architecture
+##  Architecture
 
-```text
-                    YouTube API
-                        │
-                        ▼
-                AWS Lambda
-             YouTube Ingestion
-                        │
-                        ▼
-              ┌─────────────────┐
-              │   S3 BRONZE     │
-              │   Raw Data      │
-              └────────┬────────┘
-                       │
-                       ▼
-                  AWS Glue
-                Bronze → Silver
-                       │
-                       ▼
-              ┌─────────────────┐
-              │   S3 SILVER     │
-              │ Clean Parquet   │
-              └────────┬────────┘
-                       │
-                       ▼
-             Data Quality Checks
-              Lambda + Athena
-                       │
-                ┌──────┴──────┐
-                │             │
-              FAIL           PASS
-                │             │
-                ▼             ▼
-               SNS        AWS Glue
-            Notification Silver → Gold
-                              │
-                              ▼
-                       ┌─────────────┐
-                       │  S3 GOLD    │
-                       │ Analytics   │
-                       └─────────────┘
+The project follows a layered Medallion Architecture consisting of Bronze, Silver, and Gold layers.
 
-                 AWS Step Functions
-                  Workflow Control
+![Data Architecture](docs/yt-data-pipeline.png)
