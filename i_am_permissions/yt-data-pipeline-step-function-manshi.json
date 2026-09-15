@@ -1,0 +1,39 @@
+{
+	"Version": "2012-10-17",
+	"Statement": [
+		{
+			"Sid": "InvokeLambdaFunctions",
+			"Effect": "Allow",
+			"Action": [
+				"lambda:InvokeFunction"
+			],
+			"Resource": [
+				"arn:aws:lambda:ap-south-1:766696031020:function:yt-data-pipeline-youtube-ingestion",
+				"arn:aws:lambda:ap-south-1:766696031020:function:yt-data-pipeline-json-to-parquet-dev",
+				"arn:aws:lambda:ap-south-1:766696031020:function:yt-data-pipeline-quality"
+			]
+		},
+		{
+			"Sid": "RunGlueJobs",
+			"Effect": "Allow",
+			"Action": [
+				"glue:StartJobRun",
+				"glue:GetJobRun",
+				"glue:GetJobRuns",
+				"glue:BatchStopJobRun"
+			],
+			"Resource": [
+				"arn:aws:glue:ap-south-1:766696031020:job/youtube-data-pipeline-quality",
+				"arn:aws:glue:ap-south-1:766696031020:job/youtube-data-pipeline-silver-to-gold"
+			]
+		},
+		{
+			"Sid": "PublishSNS",
+			"Effect": "Allow",
+			"Action": [
+				"sns:Publish"
+			],
+			"Resource": "arn:aws:sns:ap-south-1:766696031020:yt-data-pipeline-sns-alert"
+		}
+	]
+}
