@@ -17,6 +17,9 @@ The pipeline:
 - ⚙️ Orchestrates the complete workflow using AWS Step Functions
 - 🔔 Sends success and failure notifications using Amazon SNS
 
+## dataset
+Dataset: Raw YouTube datasets are stored in Amazon S3 and excluded from this repository due to GitHub file-size limits.
+
 ## 🏗️ Architecture
 
 ```text
